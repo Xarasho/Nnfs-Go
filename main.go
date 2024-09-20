@@ -1,8 +1,8 @@
 package main
 
 import (
-  "fmt"
-  //"github.com/stretchr/testify/assert"
+	"fmt"
+	"gonum.org/v1/gonum/mat"
 )
 
 type Neuron struct {
@@ -13,16 +13,15 @@ type Neuron struct {
 func DotProduct(vector1 []float64, vector2 []float64) float64 {
   output := 0.0 
 
-// dot product between two vectors
-    for k := 0; k < len(vector1); k++ {
-      output += vector1[k] * vector2[k]
-    }
+  //dot product between two vectors
+  for k := 0; k < len(vector1); k++ {
+    output += vector1[k] * vector2[k]
+  }
   return output
 }
 
-func main() {
-
-	inputs := []float64{1, 2, 3, 2.5}
+func RunModel() {
+  inputs := []float64{1, 2, 3, 2.5}
 
   n1 := Neuron{[]float64{0.2, 0.8, -0.5, 1.0}, 2.0}
   n2 := Neuron{[]float64{0.5, -0.91, 0.26, -0.5}, 3}
@@ -38,4 +37,16 @@ func main() {
   } 
 
 	fmt.Println(outputs)
+}
+
+func main() {
+
+  a := mat.NewDense(1, 3, []float64{1,2,3})
+  b := mat.NewDense(1, 3, []float64{2,3,4}).T()
+
+  result := mat.NewDense(1, 1, nil)
+  result.Product(a, b)
+	
+  fmt.Println(mat.Formatted(result))
+
 }
